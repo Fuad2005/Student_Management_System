@@ -60,7 +60,7 @@ class GetUserView(APIView):
             payload = jwt.decode(token, getenv('JWT_SECRET_KEY'), algorithms=['HS256'])
 
         except jwt.ExpiredSignatureError:
-            return Response({'message': 'Unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'message': 'Session Expired'}, status=status.HTTP_401_UNAUTHORIZED)
         
         try:
             user = User.objects.get(id=payload['id'])
